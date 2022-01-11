@@ -48,7 +48,7 @@ function intersect_safe(a, b)
 var NeutralFirst = intersect_safe(MascFirst, FemFirst);
 var NeutralSecond = intersect_safe(MascSecond, FemSecond);
 var NeutralSimple = intersect_safe(MascSimple, FemSimple);
-var NeutralBrairi = intersect_safe(MascBrairi, FemSBrairi); // = [] none yet
+var NeutralBrairi = intersect_safe(MascBrairi, FemBrairi); // = [] none yet
 
 // add an empty entry
 MascSecond.push("");
