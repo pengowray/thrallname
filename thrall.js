@@ -76,8 +76,9 @@ function GenName(gender = Gender_Either, cat = Cat_Random) {
 	}
 
 	if (cat == Cat_Random) {
+		// =RANDBETWEEN(1,10)
 		// =IF(C4<6,"G",(IF(C4<10,"S","B")))
-		var catNum = Math.random() * 10; // 0 to 9.9999
+		var catNum = (Math.random() * 10) + 1; // 1 to 10.9999
 		if (catNum < 6) {
 			cat = Cat_Generated;
 		} else if (catNum < 10) {
