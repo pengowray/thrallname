@@ -1,4 +1,6 @@
 // thrall name gen
+// https://www.theloyalones.com
+// https://github.com/pengowray/thrallname/
 
 var MascFirst = "A Ab Ac Ad Ae Af Ain Al Alc Ald Alf An Ash At Ath Aud Ave Bax Ben Bent Beo Bo Brad Brin Bron Cas Ceo Chad Ches Clay Cliff Clint Col Com Cor Craw Cuth Dal Dar Dex Di Dud Dun Ea Ead Eal Eald Eb Ed Ei Eid El Elf Eo Es Eth Ever Fin Ful Gal Gi Glad God Hal Hay Hayd Haw Hux In Jon Kal Ken Kil Kith La Lal Lay Les Lie Lin Na Nal Nes Nor Oak Os Pais Pend Rad San Thor Thorn Tal Tam Tru Ul Up Ur Uth Van Wal Ward Wayn Weald Wes Whit Wil Wilk Wini Wins Wolf Wood Wright Wy Yar".split(" ").sort();
 var FemFirst = "A Ab Ac Ad Ae Af Ain Al Alc Ald Alf An Ash At Ath Aud Ave Ben Bent Beo Bev Bever Brin Bron Cas Ceo Ches Col Com Cor Craw Cuth Dal Dar Di Dud Dun Ea Ead Eal Eald Eb Ed Ei Eid El Elf Eo Es Eth Ever Fin Ful Gal Gi Glad God Hal Hay Hayd Haw In Jon Kal Ken Kil Kith La Lal Lay Les Lie Lin Na Nal Nes Nor Oak Os Pais Pend Rad San Tal Tam Tru Ul Up Ur Uth Van Wal Ward Wayn Weald Wes Whit Wil Wilk Wini Wins Wolf Wood Wright Wy Yar".split(" ").sort();
@@ -109,10 +111,17 @@ function GenName(gender = Gender_Either, cat = Cat_Random) {
 			return PickOne(FemBrairi);
 		}
 	} else if (gender == Gender_Neutral) {
-		if (cat == Cat_Simple || cat == Cat_Brairi) {
+		if (cat == Cat_Simple) {
 			return PickOne(NeutralSimple);
 		} else if (cat == Cat_Generated) {
 			return PickOne(NeutralFirst) + PickOne(NeutralSecond);
+		} else if (cat == Cat_Brairi) {
+			if (NeutralBrairi.length > 6) {
+				return PickOne(NeutralBrairi);
+			} else {
+				//none or few found, fall back
+				return PickOne(NeutralSimple);
+			}
 		}
 	}
 
@@ -122,9 +131,10 @@ function GenName(gender = Gender_Either, cat = Cat_Random) {
 
 function Stats() {
 	return "Name stats:\n" +
-		`[♂]: S:${MascSimple.length}, 1:${MascFirst.length}, 2:${MascSecond.length}, B:${MascBrairi.length};\n` +
-		`[♀]: S:${FemSimple.length}, 1:${FemFirst.length}, 2:${FemSecond.length}, B:${FemBrairi.length};\n` +
-		`[N]: S:${NeutralSimple.length}, 1:${NeutralFirst.length}, 2:${NeutralSecond.length}, B:${NeutralBrairi.length};`;
+		`[Either]:  S:${MascSimple.length + FemSimple.length - NeutralSimple.length}, 1:${MascFirst.length + FemFirst.length - NeutralFirst.length}, 2:${MascSecond.length + FemSecond.length - NeutralSecond.length}, B:${MascBrairi.length + FemBrairi.length - NeutralBrairi.length};\n` +
+		`[Male]:    S:${MascSimple.length}, 1:${MascFirst.length}, 2:${MascSecond.length}, B:${MascBrairi.length};\n` +
+		`[Female]:  S:${FemSimple.length}, 1:${FemFirst.length}, 2:${FemSecond.length}, B:${FemBrairi.length};\n` +
+		`[GenderN]: S:${NeutralSimple.length}, 1:${NeutralFirst.length}, 2:${NeutralSecond.length}, B:${NeutralBrairi.length};`;
 }
 
 function CreateStatsComment() {
